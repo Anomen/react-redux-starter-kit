@@ -44,9 +44,9 @@ app.use(function (req, res) {
     } else if (renderProps) {
       const component = (
         <Provider store={store}>
-        <div style={{ height: '100%' }}>
-          <RouterContext {...renderProps}/>
-        </div>
+          <div style={{ height: '100%' }}>
+            <RouterContext {...renderProps}/>
+          </div>
         </Provider>
       );
 
