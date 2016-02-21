@@ -1,10 +1,10 @@
-import { argv } from 'yargs'
-import config from '../config'
-import webpackConfig from './webpack.config'
-import _debug from 'debug'
+import { argv } from 'yargs';
+import config from '../config';
+import webpackConfig from './webpack.config';
+import _debug from 'debug';
 
-const debug = _debug('app:karma')
-debug('Create configuration.')
+const debug = _debug('app:karma');
+debug('Create configuration.');
 
 const karmaConfig = {
   basePath: '../', // project root in relation to bin/karma.js
@@ -21,11 +21,11 @@ const karmaConfig = {
   frameworks: ['mocha'],
   reporters: ['mocha'],
   preprocessors: {
-    [`${config.dir_test}/test-bundler.js`]: ['webpack']
+    [`${config.dir_test}/test-bundler.js`]: ['webpack', 'sourcemap']
   },
   browsers: ['PhantomJS'],
   webpack: {
-    devtool: 'cheap-module-source-map',
+    devtool: 'inline-source-map',
     resolve: {
       ...webpackConfig.resolve,
       alias: {
@@ -61,17 +61,16 @@ const karmaConfig = {
   coverageReporter: {
     reporters: config.coverage_reporters
   }
-}
+};
 
 if (config.coverage_enabled) {
-  karmaConfig.reporters.push('coverage')
+  karmaConfig.reporters.push('coverage');
   karmaConfig.webpack.module.preLoaders = [{
     test: /\.(js|jsx)$/,
     include: new RegExp(config.dir_client),
     loader: 'isparta',
     exclude: /node_modules/
-  }]
+  }];
 }
 
-// cannot use `export default` because of Karma.
-module.exports = (cfg) => cfg.set(karmaConfig)
+export default (cfg) => cfg.set(karmaConfig);

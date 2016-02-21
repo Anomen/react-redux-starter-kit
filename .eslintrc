@@ -15,11 +15,13 @@
     "__DEV__"      : false,
     "__PROD__"     : false,
     "__DEBUG__"    : false,
+    "__CLIENT__"   : false,
+    "__SERVER__"   : false,
     "__DEBUG_NEW_WINDOW__" : false,
     "__BASENAME__" : false
   },
   "rules": {
-    "semi" : [2, "never"],
+    "semi" : [2, "always"],
     "space-infix-ops": 0,
     "max-len": [2, 120, 2],
     "flow-vars/define-flow-type": 1,

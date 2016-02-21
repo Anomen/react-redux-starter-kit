@@ -1,32 +1,28 @@
 /* @flow */
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { increment, doubleAsync } from '../../redux/modules/counter'
-import DuckImage from './Duck.jpg'
-import classes from './HomeView.scss'
 
-// We can use Flow (http://flowtype.org/) to type our component's props
-// and state. For convenience we've included both regular propTypes and
-// Flow types, but if you want to try just using Flow you'll want to
-// disable the eslint rule `react/prop-types`.
-// NOTE: You can run `npm run flow:check` to check for any errors in your
-// code, or `npm i -g flow-bin` to have access to the binary globally.
-// Sorry Windows users :(.
-type Props = {
-  counter: number,
-  doubleAsync: Function,
-  increment: Function
-};
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { actions as counterActions } from '../../redux/modules/counter';
+import DuckImage from './Duck.jpg';
+import classes from './HomeView.scss';
 
-// We avoid using the `@connect` decorator on the class definition so
-// that we can export the undecorated component for testing.
+// We define mapStateToProps where we'd normally use
+// the @connect decorator so the data requirements are clear upfront, but then
+// export the decorated component after the main class definition so
+// the component can be tested w/ and w/o being connected.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
-export class HomeView extends React.Component<void, Props, void> {
+const mapStateToProps = (state) => ({
+  counter: state.counter
+});
+export class HomeView extends React.Component {
   static propTypes = {
     counter: PropTypes.number.isRequired,
     doubleAsync: PropTypes.func.isRequired,
     increment: PropTypes.func.isRequired
   };
+
+  increment = () => this.props.increment(1);
 
   render () {
     return (
@@ -44,22 +40,18 @@ export class HomeView extends React.Component<void, Props, void> {
           {' '}
           <span className={classes['counter--green']}>{this.props.counter}</span>
         </h2>
-        <button className='btn btn-default' onClick={this.props.increment}>
+        <button className='btn btn-default' onClick={this.increment}>
           Increment
         </button>
         {' '}
         <button className='btn btn-default' onClick={this.props.doubleAsync}>
           Double (Async)
         </button>
+        <hr />
+        <Link to='/404'>Go to 404 Page</Link>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => ({
-  counter: state.counter
-})
-export default connect((mapStateToProps), {
-  increment: () => increment(1),
-  doubleAsync
-})(HomeView)
+export default connect(mapStateToProps, counterActions)(HomeView);

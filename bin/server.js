@@ -1,10 +1,17 @@
-import config from '../config'
-import server from '../server/main'
-import _debug from 'debug'
+// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
+import WebpackIsomorphicTools from 'webpack-isomorphic-tools';
+import config from '../config';
+import _debug from 'debug';
 
-const debug = _debug('app:bin:server')
-const port = config.server_port
-const host = config.server_host
+global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../build/webpack-isomorphic-tools'))
+  .development(true)
+  .server('.', () => {
+    const server = require('../server/main').default;
 
-server.listen(port)
-debug(`Server is now running at http://${host}:${port}.`)
+    const debug = _debug('app:bin:server');
+    const port = config.server_port;
+    const host = config.server_host;
+
+    server.listen(port);
+    debug(`Server is now running at ${host}:${port}.`);
+  });

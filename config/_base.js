@@ -1,9 +1,9 @@
 /* eslint key-spacing:0 spaced-comment:0 */
-import _debug from 'debug'
-import path from 'path'
-import { argv } from 'yargs'
+import _debug from 'debug';
+import path from 'path';
+import { argv } from 'yargs';
 
-const debug = _debug('app:config:_base')
+const debug = _debug('app:config:_base');
 const config = {
   env : process.env.NODE_ENV || 'development',
 
@@ -23,10 +23,16 @@ const config = {
   server_port : process.env.PORT || 3000,
 
   // ----------------------------------
+  // Webpack HMR Configuration
+  // ----------------------------------
+  server_hmr_host : 'localhost',
+  server_hmr_port : process.env.PORT + 1 || 3001,
+
+  // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
   compiler_css_modules     : true,
-  compiler_devtool         : 'source-map',
+  compiler_devtool         : 'inline-source-map',
   compiler_hash_type       : 'hash',
   compiler_fail_on_warning : false,
   compiler_quiet           : false,
@@ -53,7 +59,7 @@ const config = {
     { type : 'text-summary' },
     { type : 'lcov', dir : 'coverage' }
   ]
-}
+};
 
 /************************************************
 -------------------------------------------------
@@ -79,38 +85,38 @@ config.globals = {
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
   '__DEBUG_NEW_WINDOW__' : !!argv.nw,
   '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
-}
+};
 
 // ------------------------------------
 // Validate Vendor Dependencies
 // ------------------------------------
-const pkg = require('../package.json')
+const pkg = require('../package.json');
 
 config.compiler_vendor = config.compiler_vendor
   .filter((dep) => {
-    if (pkg.dependencies[dep]) return true
+    if (pkg.dependencies[dep]) return true;
 
     debug(
       `Package "${dep}" was not found as an npm dependency in package.json; ` +
       `it won't be included in the webpack vendor bundle.
        Consider removing it from vendor_dependencies in ~/config/index.js`
-    )
-  })
+    );
+  });
 
 // ------------------------------------
 // Utilities
 // ------------------------------------
 config.utils_paths = (() => {
-  const resolve = path.resolve
+  const resolve = path.resolve;
 
   const base = (...args) =>
-    resolve.apply(resolve, [config.path_base, ...args])
+    resolve.apply(resolve, [config.path_base, ...args]);
 
   return {
     base   : base,
     client : base.bind(null, config.dir_client),
     dist   : base.bind(null, config.dir_dist)
-  }
-})()
+  };
+})();
 
-export default config
+export default config;
