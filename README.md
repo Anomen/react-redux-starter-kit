@@ -1,18 +1,16 @@
-React Redux Starter Kit
-=======================
+Universal React Redux Starter Kit
+=================================
 
-[![Join the chat at https://gitter.im/davezuko/react-redux-starter-kit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/davezuko/react-redux-starter-kit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/davezuko/react-redux-starter-kit.svg?branch=master)](https://travis-ci.org/davezuko/react-redux-starter-kit?branch=master)
-[![dependencies](https://david-dm.org/davezuko/react-redux-starter-kit.svg)](https://david-dm.org/davezuko/react-redux-starter-kit)
-[![devDependency Status](https://david-dm.org/davezuko/react-redux-starter-kit/dev-status.svg)](https://david-dm.org/davezuko/react-redux-starter-kit#info=devDependencies)
+[![dependencies](https://david-dm.org/Anomen/universal-react-redux-starter-kit.svg)](https://david-dm.org/Anomen/universal-react-redux-starter-kit)
+[![devDependency Status](https://david-dm.org/Anomen/universal-react-redux-starter-kit/dev-status.svg)](https://david-dm.org/Anomen/universal-react-redux-starter-kit#info=devDependencies)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-> ### Want Semicolons?
-> After installing npm dependencies, open `.eslintrc`, change the `semi` rule from `never` to `always`, and then run `npm run lint:fix` -- Easy as that! Alternatively, use the same npm script after installing and extending your preferred ESLint configuration; it's easy to customize the project's code style to suit your team's needs. See, we can coexist peacefully.
+This repository is a fork from the awesome [React Reduxt Starter Kit](https://github.com/davezuko/react-redux-starter-kit), which is a very simple and understandable starter kit for React and Redux.
+The goal of this fork is to make it universal, and add a couple of useful libraries. This makes this repository more opiniated than the original one. Koa has been replaced with Express, but as it's not aimed to be production-ready, it does not really matter.
 
-This starter kit is designed to get you up and running with a bunch of awesome new front-end technologies, all on top of a configurable, feature-rich webpack build system that's already setup to provide hot reloading, CSS modules with Sass support, unit testing, code coverage reports, bundle splitting, and a whole lot more.
+*As I wanted to make as few modification as possible, this README is a lot like the original React Reduxt Starter Kit on purpose. Thank you for making such a great foundation.*
 
-The primary goal of this project is to remain as **unopinionated** as possible. Its purpose is not to dictate your project structure or to demonstrate a complete sample application, but to provide a set of tools intended to make front-end development robust, easy, and, most importantly, fun. Check out the full feature list below!
+> This starter kit is designed to get you up and running with a bunch of awesome new front-end technologies, all on top of a configurable, feature-rich webpack build system that's already setup to provide hot reloading, CSS modules with Sass support, unit testing, code coverage reports, bundle splitting, and a whole lot more.
 
 Table of Contents
 -----------------
@@ -27,12 +25,13 @@ Table of Contents
 1. [Testing](#testing)
 1. [Deployment](#deployment)
 1. [Troubleshooting](#troubleshooting)
+1. [Useful links](#links)
 
 Requirements
 ------------
 
-* node `^4.2.0`
-* npm `^3.0.0`
+* node `^5.6.0`
+* npm `^3.6.0`
 
 Features
 --------
@@ -46,6 +45,8 @@ Features
   * redux-thunk middleware
 * [react-router](https://github.com/rackt/react-router) (`^2.0.0`)
 * [react-router-redux](https://github.com/rackt/react-router-redux) (`^3.0.0`)
+* [Helmet](https://github.com/nfl/react-helmet) (`^2.3.1`)
+  * Manage meta tags in a React application
 * [Webpack](https://github.com/webpack/webpack)
   * [CSS modules!](https://github.com/css-modules/css-modules)
   * sass-loader
@@ -53,7 +54,7 @@ Features
   * Bundle splitting for app and vendor dependencies
   * CSS extraction during builts that are not using HMR (like `npm run compile`)
   * Loaders for fonts and images
-* [Koa](https://github.com/koajs/koa) (`^2.0.0-alpha`)
+* [Express](https://github.com/expressjs/express) (`^4.13.4`)
   * webpack-dev-middleware
   * webpack-hot-middleware
 * [Karma](https://github.com/karma-runner/karma)
@@ -66,8 +67,6 @@ Features
   * [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) for:
     * react-transform-hmr (HMR for React components)
     * redbox-react (visible error reporting for React components)
-  * [babel-plugin-transform-react-constant-elements](https://babeljs.io/docs/plugins/transform-react-constant-elements/) save some memory allocation
-  * [babel-plugin-transform-react-remove-prop-types](https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types) remove `PropTypes`
 * [ESLint](http://eslint.org)
   * Uses [Standard Style](https://github.com/feross/standard) by default, but you're welcome to change this!
   * Includes separate test-specific `.eslintrc` to support chai assertions
@@ -78,8 +77,8 @@ Getting Started
 Just clone the repo and install the necessary node modules:
 
 ```shell
-$ git clone https://github.com/davezuko/react-redux-starter-kit.git
-$ cd react-redux-starter-kit
+$ git clone https://github.com/Anomen/universal-react-redux-starter-kit.git
+$ cd universal-react-redux-starter-kit
 $ npm install                   # Install Node modules listed in ./package.json (may take a while the first time)
 $ npm start                     # Compile and launch
 ```
@@ -97,7 +96,7 @@ Before delving into the descriptions of each available npm script, here's a brie
 
 Great, now that introductions have been made here's everything in full detail:
 
-* `npm start` - Spins up Koa server to serve your app at `localhost:3000`. HMR will be enabled in development.
+* `npm start` - Spins up Express server to serve your app at `localhost:3000`. HMR will be enabled in development (on port `3001`)
 * `npm run compile` - Compiles the application to disk (`~/dist` by default).
 * `npm run dev` - Same as `npm start`, but enables nodemon to automatically restart the server when server-related code is changed.
 * `npm run dev:nw` - Same as `npm run dev`, but opens the redux devtools in a new window.
@@ -136,6 +135,7 @@ The folder structure provided is only meant to serve as a guide, it is by no mea
 │   └── webpack              # Environment-specific configuration files for webpack
 ├── config                   # Project configuration settings
 ├── server                   # Koa application (uses webpack middleware)
+│   ├── html.js              # Overall HTML structure
 │   └── main.js              # Server application entry point
 ├── src                      # Application source code
 │   ├── components           # Generic React Components (generally Dumb components)
@@ -193,6 +193,8 @@ import SomeComponent from 'components/SomeComponent' // Hooray!
 These are global variables available to you anywhere in your source code. If you wish to modify them, they can be found as the `globals` key in `~/config/_base.js`. When adding new globals, also add them to `~/.eslintrc`.
 
 * `process.env.NODE_ENV` - the active `NODE_ENV` when the build started
+* `__CLIENT__` - True when the code runs in a browser
+* `__SERVER__` - True when the code runs in a server
 * `__DEV__` - True when `process.env.NODE_ENV` is `development`
 * `__PROD__` - True when `process.env.NODE_ENV` is `production`
 * `__TEST__` - True when `process.env.NODE_ENV` is `test`
@@ -202,7 +204,7 @@ These are global variables available to you anywhere in your source code. If you
 Server
 ------
 
-This starter kit comes packaged with an Koa server. It's important to note that the sole purpose of this server is to provide `webpack-dev-middleware` and `webpack-hot-middleware` for hot module replacement. Using a custom Koa app in place of [webpack-dev-server](https://github.com/webpack/webpack-dev-server) will hopefully make it easier for users to extend the starter kit to include functionality such as back-end API's, isomorphic/universal rendering, and more -- all without bloating the base boilerplate. Because of this, it should be noted that the provided server is **not** production-ready. If you're deploying to production, take a look at [the deployment section](#deployment).
+This starter kit comes packaged with an Express server. It's important to note that the sole purpose of this server is to provide `webpack-dev-middleware` and `webpack-hot-middleware` for hot module replacement. Using a custom Express app in place of [webpack-dev-server](https://github.com/webpack/webpack-dev-server) will hopefully make it easier for users to extend the starter kit to include functionality such as back-end API's and more -- all without bloating the base boilerplate. Because of this, it should be noted that the provided server is **not** production-ready. If you're deploying to production, take a look at [the deployment section](#deployment).
 
 Styles
 ------
@@ -269,3 +271,12 @@ While this is common to any sizable application, it's worth noting for those who
 ```
 	"folder_exclude_patterns": [".svn",	".git",	".hg", "CVS",	"node_modules",	"dist"]
 ```
+
+Useful links
+------------
+
+This repository has been inspired by other people's code. Here are the links for references:
+
+ * [React Redux Router](https://github.com/reactjs/react-router-redux/blob/master/examples/server/server.js) - Isomorphic server example
+ * [webpack-express-boilerplate](https://github.com/christianalfoni/webpack-express-boilerplate) - A boilerplate for running a Webpack workflow in Node express
+ * [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) - A complete isomorphic redux example
