@@ -22,7 +22,7 @@ export class HomeView extends React.Component {
     increment: PropTypes.func.isRequired
   };
 
-  increment = () => this.props.increment(1);
+  increment : Function = () => this.props.increment(1);
 
   render () {
     return (
