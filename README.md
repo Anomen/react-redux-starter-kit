@@ -36,15 +36,15 @@ Requirements
 Features
 --------
 
-* [React](https://github.com/facebook/react) (`^0.14.0`)
-  * Includes react-addons-test-utils (`^0.14.0`)
-* [Redux](https://github.com/rackt/redux) (`^3.0.0`)
-  * react-redux (`^4.0.0`)
+* [React](https://github.com/facebook/react) (`^0.14.7`)
+  * Includes react-addons-test-utils (`^0.14.7`)
+* [Redux](https://github.com/rackt/redux) (`^3.3.1`)
+  * react-redux (`^4.4.0`)
   * redux-devtools
     * use `npm run dev:nw` to display them in a separate window.
   * redux-thunk middleware
 * [react-router](https://github.com/rackt/react-router) (`^2.0.0`)
-* [react-router-redux](https://github.com/rackt/react-router-redux) (`^3.0.0`)
+* [react-router-redux](https://github.com/rackt/react-router-redux) (`^4.0.0-rc2`)
 * [Helmet](https://github.com/nfl/react-helmet) (`^2.3.1`)
   * Manage meta tags in a React application
 * [Webpack](https://github.com/webpack/webpack)
@@ -62,7 +62,7 @@ Features
   * [Airbnb's Enzyme](https://github.com/airbnb/enzyme) with [chai-enzyme](https://github.com/producthunt/chai-enzyme)
   * PhantomJS
   * Code coverage reports
-* [Babel](https://github.com/babel/babel) (`^6.3.0`)
+* [Babel](https://github.com/babel/babel) (`^6.5.1`)
   * [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime) so transforms aren't inlined
   * [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) for:
     * react-transform-hmr (HMR for React components)
