@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import _ from 'lodash';
 import cssnano from 'cssnano';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
@@ -7,7 +8,7 @@ import _debug from 'debug';
 
 const debug = _debug('app:webpack:config');
 const paths = config.utils_paths;
-const {__DEV__, __PROD__, __TEST__} = config.globals;
+const {__DEV__, __PROD__, __TEST__, __CONFIG__} = config.globals;
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -49,7 +50,9 @@ webpackConfig.output = {
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
-  new webpack.DefinePlugin(config.globals)
+  new webpack.DefinePlugin(_.assign({}, config.globals, {
+    __CONFIG__: JSON.stringify(__CONFIG__)
+  }))
 ];
 
 if (__DEV__) {

@@ -60,6 +60,8 @@
   "dependencies": {
     "better-npm-run": "0.0.7",
     "co-request": "^1.0.0",
+    "cookie-dough": "0.0.6",
+    "cookie-parser": "^1.4.1",
     "debug": "^2.2.0",
     "express": "^4.13.4",
     "history": "^2.0.0",
@@ -73,6 +75,9 @@
     "redux": "^3.3.1",
     "redux-thunk": "^1.0.3",
     "serialize-javascript": "^1.1.2",
+    "superagent": "^1.7.2",
+    "superagent-defaults": "^0.1.14",
+    "superagent-promise": "^1.1.0",
     "url": "^0.11.0",
     "webpack-isomorphic-tools": "^2.2.29",
     "yargs": "^4.1.0"

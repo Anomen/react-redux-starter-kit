@@ -2,10 +2,16 @@
 import _debug from 'debug';
 import path from 'path';
 import { argv } from 'yargs';
+import getGlobals from './_globals';
 
 const debug = _debug('app:config:_base');
 const config = {
   env : process.env.NODE_ENV || 'development',
+
+  // ----------------------------------
+  // Prefix all the API base url
+  // ----------------------------------
+  api_base_path: '',
 
   // ----------------------------------
   // Project Structure
@@ -15,6 +21,12 @@ const config = {
   dir_dist   : 'dist',
   dir_server : 'server',
   dir_test   : 'tests',
+
+  // ----------------------------------
+  // API Configuration
+  // ----------------------------------
+  api_host : process.env.API_HOST || 'localhost',
+  api_port : process.env.API_PORT || 8000,
 
   // ----------------------------------
   // Server Configuration
@@ -73,19 +85,7 @@ Edit at Your Own Risk
 // ------------------------------------
 // Environment
 // ------------------------------------
-// N.B.: globals added here must _also_ be added to .eslintrc
-config.globals = {
-  'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
-  },
-  'NODE_ENV'     : config.env,
-  '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production',
-  '__TEST__'     : config.env === 'test',
-  '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
-  '__DEBUG_NEW_WINDOW__' : !!argv.nw,
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
-};
+config.globals = getGlobals(config, argv);
 
 // ------------------------------------
 // Validate Vendor Dependencies
