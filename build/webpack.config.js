@@ -49,17 +49,7 @@ webpackConfig.output = {
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
-  new webpack.DefinePlugin(config.globals),
-  new HtmlWebpackPlugin({
-    template: paths.client('index.html'),
-    hash: false,
-    favicon: paths.client('static/favicon.ico'),
-    filename: 'index.html',
-    inject: 'body',
-    minify: {
-      collapseWhitespace: true
-    }
-  })
+  new webpack.DefinePlugin(config.globals)
 ];
 
 if (__DEV__) {
@@ -208,8 +198,8 @@ webpackConfig.module.loaders.push(
   { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
   { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
   { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
-  { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' }
-)
+  { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'file?limit=8192' }
+);
 /* eslint-enable */
 
 // ------------------------------------
