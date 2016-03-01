@@ -3,6 +3,7 @@
 // Constants
 // ------------------------------------
 export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
+export const COUNTER_DOUBLE_INCREMENT = 'COUNTER_DOUBLE_INCREMENT';
 
 // ------------------------------------
 // Actions

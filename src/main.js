@@ -5,6 +5,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import makeRoutes from './routes';
 import Root from './containers/Root';
 import configureStore from './redux/configureStore';
+import configureXhrClient from './redux/utils/createXhrClient';
 
 window.__CLIENT__ = true;
 window.__SERVER__ = false;
@@ -14,7 +15,8 @@ window.__SERVER__ = false;
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
 const initialState = window.__INITIAL_STATE__;
-const store = configureStore(browserHistory, initialState);
+const xhrClient = configureXhrClient();
+const store = configureStore(browserHistory, xhrClient, initialState);
 const history = syncHistoryWithStore(browserHistory, store);
 
 // Now that we have the Redux store, we can create our routes. We provide

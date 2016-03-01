@@ -1,4 +1,8 @@
+global.__CLIENT__ = false;
+global.__SERVER__ = true;
+
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import _debug from 'debug';
 import config from '../config';
 import webpackProxyMiddleware from './middleware/webpack-proxy';
@@ -6,8 +10,6 @@ import webpackProxyMiddleware from './middleware/webpack-proxy';
 Object.keys(config.globals).map((key) => {
   global[key] = config.globals[key];
 });
-global.__CLIENT__ = false;
-global.__SERVER__ = true;
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -17,18 +19,23 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import HTML from './html';
 
 import configureStore from '../src/redux/configureStore';
+import configureXhrClient from '../src/redux/utils/createXhrClient';
 import makeRoutes from '../src/routes';
 
 const debug = _debug('app:server');
 const paths = config.utils_paths;
 const app = express();
 
+// Enable cookies
+app.use(cookieParser());
+
 // ------------------------------------
 // Apply redux-router
 // ------------------------------------
 app.use(function (req, res) {
+  const xhrClient = configureXhrClient(req);
   const memoryHistory = createMemoryHistory(req.path);
-  const store = configureStore(memoryHistory);
+  const store = configureStore(memoryHistory, xhrClient);
   const history = syncHistoryWithStore(memoryHistory, store);
 
   // Now that we have the Redux store, we can create our routes. We provide
