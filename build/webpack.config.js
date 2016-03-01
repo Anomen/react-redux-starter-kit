@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import _ from 'lodash';
 import cssnano from 'cssnano';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import config from '../config';
 import _debug from 'debug';

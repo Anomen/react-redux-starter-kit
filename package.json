@@ -117,7 +117,6 @@
     "flow-bin": "^0.21.0",
     "flow-interfaces": "^0.2.1",
     "fs-extra": "^0.26.5",
-    "html-webpack-plugin": "^2.9.0",
     "imports-loader": "^0.6.5",
     "isparta-loader": "^2.0.0",
     "json-loader": "^0.5.4",
