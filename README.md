@@ -21,6 +21,7 @@ Table of Contents
 1. [Structure](#structure)
 1. [Webpack](#webpack)
 1. [Server](#server)
+1. [Isomorphism](#isomorphism)
 1. [Styles](#styles)
 1. [Testing](#testing)
 1. [Deployment](#deployment)
@@ -134,7 +135,7 @@ The folder structure provided is only meant to serve as a guide, it is by no mea
 ├── build                    # All build-related configuration
 │   └── webpack              # Environment-specific configuration files for webpack
 ├── config                   # Project configuration settings
-├── server                   # Koa application (uses webpack middleware)
+├── server                   # Express application (uses webpack middleware)
 │   ├── html.js              # Overall HTML structure
 │   └── main.js              # Server application entry point
 ├── src                      # Application source code
@@ -149,6 +150,7 @@ The folder structure provided is only meant to serve as a guide, it is by no mea
 │   ├── styles               # Application-wide styles (generally settings)
 │   ├── views                # Components that live at a route
 │   └── main.js              # Application bootstrap and rendering
+│   └── config.js            # Application config built with Webpack, defined in the config/ folder
 └── tests                    # Unit tests
 ```
 
@@ -205,6 +207,33 @@ Server
 ------
 
 This starter kit comes packaged with an Express server. It's important to note that the sole purpose of this server is to provide `webpack-dev-middleware` and `webpack-hot-middleware` for hot module replacement. Using a custom Express app in place of [webpack-dev-server](https://github.com/webpack/webpack-dev-server) will hopefully make it easier for users to extend the starter kit to include functionality such as back-end API's and more -- all without bloating the base boilerplate. Because of this, it should be noted that the provided server is **not** production-ready. If you're deploying to production, take a look at [the deployment section](#deployment).
+
+Isomorphism
+----------
+
+This starter kit is isomorphic, which implies a couple of constraints to make the code work in both Server and Client.
+
+### XHR requests
+
+In order to make XHR requests to the API, the actions can provide a `promise` key, which is a function with the first parameter being a `superagent` object, and which needs to return a promise.
+
+For example:
+
+```
+export const incrementXhr = () => ({
+  type: COUNTER_INCREMENT_XHR,
+  promise: (client) => client.post('/increment')
+});
+```
+
+In this example, 3 actions are automatically dispatched:
+
+ * `COUNTER_INCREMENT_XHR` - Sent before calling the promise function.
+ * `COUNTER_INCREMENT_XHR_SUCCESS` - Sent with `result` when the promise is resolved.
+ * `COUNTER_INCREMENT_XHR_FAIL` - Sent with `error` when the promise is rejected.
+
+You can customise the default values (like the `Authorization` token, for example) that are passed along with the requests editing the file `src/redux/utils/createXhrClient.js`.
+
 
 Styles
 ------
