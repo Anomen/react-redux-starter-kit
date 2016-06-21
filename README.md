@@ -6,7 +6,7 @@ Universal React Redux Starter Kit
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 This repository is a fork from the awesome [React Reduxt Starter Kit](https://github.com/davezuko/react-redux-starter-kit), which is a very simple and understandable starter kit for React and Redux.
-The goal of this fork is to make it universal, and add a couple of useful libraries. This makes this repository more opiniated than the original one. Express has been replaced with Express, but as it's not aimed to be production-ready, it does not really matter.
+The goal of this fork is to make it universal, and add a couple of useful libraries. This makes this repository more opiniated than the original one. Koa has been replaced with Express, but as it's not aimed to be production-ready, it does not really matter.
 
 *As I wanted to make as few modification as possible, this README is a lot like the original React Reduxt Starter Kit on purpose. Thank you for making such a great foundation.*
 
